@@ -45,12 +45,13 @@ namespace Assets.Scripts.Enemy
         /// </summary>
         public void ContinueMove()
         {
-            StartCoroutine(WaitAndSetDestination(navMeshDestRefreshTime));
+            meshAgent.isStopped = false;
+            StartCoroutine(WaitAndSetDestination());
         }
 
-        private IEnumerator WaitAndSetDestination(float delay)
+        private IEnumerator WaitAndSetDestination()
         {
-            yield return new WaitForSeconds(delay);
+            yield return new WaitForSeconds(navMeshDestRefreshTime);
 
             meshAgent.SetDestination(player.transform.position);
 
@@ -59,7 +60,7 @@ namespace Assets.Scripts.Enemy
 
         private void OnDestroy()
         {
-            StopMove();
+            StopAllCoroutines();
         }
     }
 }
