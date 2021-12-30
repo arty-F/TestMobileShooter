@@ -10,21 +10,14 @@ namespace Assets.Scripts.Enemy
     /// </summary>
     public class EnemyMoveController : MonoBehaviour
     {
-        #region const
-
-        /// <summary>
-        /// Время через которое обновляется destination у navMeshAgent
-        /// </summary>
-        private const float _navMeshDestRefreshTime = 0.5f;
-
-        #endregion
-
         #region private fields
 
         [SerializeField]
         private NavMeshAgent meshAgent;
 
         private GameObject player;
+
+        private float navMeshDestRefreshTime;
 
         #endregion
 
@@ -33,6 +26,7 @@ namespace Assets.Scripts.Enemy
             var serviceLocator = ServiceLocator.Instance;
 
             player = serviceLocator.Player;
+            navMeshDestRefreshTime = serviceLocator.ConfigsStorage.EnemyConfig.NavMeshDestRefreshTime;
 
             ContinueMove();
         }
@@ -51,7 +45,7 @@ namespace Assets.Scripts.Enemy
         /// </summary>
         public void ContinueMove()
         {
-            StartCoroutine(WaitAndSetDestination(_navMeshDestRefreshTime));
+            StartCoroutine(WaitAndSetDestination(navMeshDestRefreshTime));
         }
 
         private IEnumerator WaitAndSetDestination(float delay)

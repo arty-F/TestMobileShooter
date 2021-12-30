@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Infrastructure;
+using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -8,15 +9,6 @@ namespace Assets.Scripts.Player
     /// </summary>
     public class PlayerHp : MonoBehaviour
     {
-        #region const
-
-        /// <summary>
-        /// Значение максимального здоровья игрока.
-        /// </summary>
-        private const float _maxHp = 100f;
-
-        #endregion
-
         #region events
 
         /// <summary>
@@ -32,9 +24,11 @@ namespace Assets.Scripts.Player
 
         #endregion
 
-        private void Awake()
+        private void Start()
         {
-            currentHp = _maxHp;
+            var serviceLocator = ServiceLocator.Instance;
+
+            currentHp = serviceLocator.ConfigsStorage.PlayerConfig.MaxHp;
         }
 
         /// <summary>

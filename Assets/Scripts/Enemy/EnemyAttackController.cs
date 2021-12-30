@@ -10,29 +10,19 @@ namespace Assets.Scripts.Enemy
     /// </summary>
     public class EnemyAttackController : MonoBehaviour
     {
-        #region const
-
-        /// <summary>
-        /// Время между атаками в секундах.
-        /// </summary>
-        private const float _betweenAttackTime = 1f;
-
-        /// <summary>
-        /// Урон, наносимый каждой атакой.
-        /// </summary>
-        private const float _damage = 5f;
-
-        #endregion
-
         #region private fields
-
-        private bool playerInRange;
 
         [SerializeField]
         private EnemyMoveController moveController;
 
         [SerializeField]
         private EnemyAnimationController animationController;
+
+        private bool playerInRange;
+
+        private float betweenAttackTime;
+
+        private float damage;
 
         private PlayerHp playerHp;
 
@@ -43,6 +33,8 @@ namespace Assets.Scripts.Enemy
             var serviceLocator = ServiceLocator.Instance;
 
             playerHp = serviceLocator.PlayerHp;
+            betweenAttackTime = serviceLocator.ConfigsStorage.EnemyConfig.AttackBetweenTime;
+            damage = serviceLocator.ConfigsStorage.EnemyConfig.AttackDamage;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -62,9 +54,9 @@ namespace Assets.Scripts.Enemy
 
             animationController.OnAttack();
 
-            playerHp.TakeDamage(_damage);
+            playerHp.TakeDamage(damage);
 
-            yield return new WaitForSeconds(_betweenAttackTime);
+            yield return new WaitForSeconds(betweenAttackTime);
 
             if (playerInRange)
             {

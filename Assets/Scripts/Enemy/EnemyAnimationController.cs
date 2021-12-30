@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Infrastructure;
+using UnityEngine;
 
 namespace Assets.Scripts.Enemy
 {
@@ -7,33 +8,31 @@ namespace Assets.Scripts.Enemy
     /// </summary>
     public class EnemyAnimationController : MonoBehaviour
     {
-        #region const
-
-        /// <summary>
-        /// Время перехода между анимациями.
-        /// </summary>
-        private float _transitionTime = 0.1f;
-
-        /// <summary>
-        /// Название анимации атаки.
-        /// </summary>
-        private string _attackName = "EnemyAttack";
-
-        #endregion
-
         #region private fields
 
         [SerializeField]
         private Animator animator;
 
+        private float transitionTime;
+
+        private string attackName;
+
         #endregion
+
+        private void Start()
+        {
+            var serviceLocator = ServiceLocator.Instance;
+
+            transitionTime = serviceLocator.ConfigsStorage.EnemyConfig.AnimationTransitionTime;
+            attackName = serviceLocator.ConfigsStorage.EnemyConfig.AnimationAttackName;
+        }
 
         /// <summary>
         /// Проигрывание анимации атаки.
         /// </summary>
         public void OnAttack()
         {
-            animator.CrossFade(_attackName, _transitionTime);
+            animator.CrossFade(attackName, transitionTime);
         }
     }
 }
