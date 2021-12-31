@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Player;
+﻿using Assets.Scripts.Coin;
+using Assets.Scripts.Player;
 using UnityEngine;
 
 namespace Assets.Scripts.Infrastructure
@@ -22,6 +23,9 @@ namespace Assets.Scripts.Infrastructure
 
         [SerializeField]
         public ConfigsStorage ConfigsStorage;
+
+        [SerializeField]
+        public CoinFactory CoinFactory;
 
         #endregion
 

@@ -16,5 +16,8 @@ namespace Assets.Scripts.Infrastructure
 
         [SerializeField]
         public BulletConfig BulletConfig;
+
+        [SerializeField]
+        public CoinConfig CoinConfig;
     }
 }

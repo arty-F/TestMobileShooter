@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Assets.Scripts.Enemy
 {
     /// <summary>
-    /// Отвечает хранение значения здоровья за нанесение урона врагу.
+    /// Отвечает за хранение значения здоровья и нанесение урона врагу.
     /// </summary>
     public class EnemyHp : MonoBehaviour
     {
@@ -14,6 +14,9 @@ namespace Assets.Scripts.Enemy
 
         [SerializeField]
         private GameObject rootObject;
+
+        [SerializeField]
+        private EnemyCoinDropper coinDropper;
 
         #endregion
 
@@ -34,6 +37,7 @@ namespace Assets.Scripts.Enemy
 
             if (currentHp <= 0f)
             {
+                coinDropper.DropCoin();
                 rootObject.SetActive(false);
                 Destroy(rootObject);
             }
