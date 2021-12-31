@@ -9,6 +9,12 @@ namespace Assets.Scripts.Enemy
     /// </summary>
     public class Respawner : MonoBehaviour
     {
+        #region const
+
+        private const int _pointVisibilityCheckAttempts = 10;
+
+        #endregion
+
         #region private fields
 
         private GameObject enemyPrefab;
@@ -17,7 +23,25 @@ namespace Assets.Scripts.Enemy
 
         private float maxRespawnTime;
 
+        [SerializeField]
+        private Transform[] respawnPoints;
+
+        private Renderer[] respawnRenderers;
+
+        [SerializeField]
+        private Camera mainCamera;
+
         #endregion
+
+        private void Awake()
+        {
+            respawnRenderers = new Renderer[respawnPoints.Length];
+
+            for (int i = 0; i < respawnPoints.Length; i++)
+            {
+                respawnRenderers[i] = respawnPoints[i].gameObject.GetComponent<Renderer>();
+            }
+        }
 
         private void Start()
         {
@@ -38,10 +62,23 @@ namespace Assets.Scripts.Enemy
         {
             yield return new WaitForSeconds(Random.Range(minRespawnTime, maxRespawnTime));
 
-            var pos = new Vector3(0f, 0f, 0f);
-            GameObject.Instantiate(enemyPrefab, pos, Quaternion.identity);
+            GameObject.Instantiate(enemyPrefab, GetNextRespawnPosition(), Quaternion.identity);
 
             StartCoroutine(WaitAndCreateEnemy());
+        }
+
+        private Vector3 GetNextRespawnPosition()
+        {
+            int i;
+            int attempts = _pointVisibilityCheckAttempts;
+
+            do
+            {
+                i = Random.Range(0, respawnPoints.Length);
+                attempts--;
+            } while (respawnRenderers[i].isVisible && attempts > 0);
+
+            return respawnPoints[i].position;
         }
 
         private void OnDestroy()
