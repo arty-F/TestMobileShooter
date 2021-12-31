@@ -7,6 +7,9 @@ namespace Assets.Scripts.Infrastructure.ScriptableObjects
     {
         public GameObject Prefab;
 
+        [Tooltip("Базовое количество здоровья врага.")]
+        public float MaxHp = 2f;
+
         [Header("Attack"), Tooltip("Время между атаками в секундах.")]
         public float AttackBetweenTime = 1f;
 
@@ -16,10 +19,7 @@ namespace Assets.Scripts.Infrastructure.ScriptableObjects
         [Header("NavMesh"), Tooltip("Время через которое обновляется destination у navMeshAgent, в секундах.")]
         public float NavMeshDestRefreshTime = 0.5f;
 
-        [Header("Animation"), Tooltip("Время перехода между анимациями.")]
-        public float AnimationTransitionTime = 0.1f;
-
-        [Tooltip("Название анимации атаки.")]
+        [Header("Animation"), Tooltip("Название анимации атаки.")]
         public string AnimationAttackName = "EnemyAttack";
 
         [Header("Respawn"), Tooltip("Время, через которое появляется новый враг, в секундах.")]

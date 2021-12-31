@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Assets.Scripts.Player;
 
 /// <summary>
 /// This is not a functional weapon script. It just shows how to implement shooting and reloading with buttons system.
@@ -15,6 +16,9 @@ public class WeaponExample : MonoBehaviour
     private int ammo;
     private float delay;
     private bool reloading;
+
+    [SerializeField]
+    private PlayerBulletFactory weapon;
 
 	void Start () 
     {
@@ -36,7 +40,7 @@ public class WeaponExample : MonoBehaviour
     {
         if (ammoCount > 0)
         {
-            Debug.Log("Shoot");
+            weapon.CreateBullet();
             ammoCount--;
         }
         else

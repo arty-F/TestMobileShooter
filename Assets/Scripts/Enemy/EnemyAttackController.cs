@@ -37,13 +37,13 @@ namespace Assets.Scripts.Enemy
             damage = serviceLocator.ConfigsStorage.EnemyConfig.AttackDamage;
         }
 
-        private void OnTriggerEnter(Collider other)
+        private void OnTriggerEnter()
         {
             playerInRange = true;
             StartCoroutine(AttackAndWait());
         }
 
-        private void OnTriggerExit(Collider other)
+        private void OnTriggerExit()
         {
             playerInRange = false;
         }
@@ -66,6 +66,11 @@ namespace Assets.Scripts.Enemy
             {
                 moveController.ContinueMove();
             }
+        }
+
+        private void OnDestroy()
+        {
+            StopAllCoroutines();
         }
     }
 }

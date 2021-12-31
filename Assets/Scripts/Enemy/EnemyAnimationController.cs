@@ -13,8 +13,6 @@ namespace Assets.Scripts.Enemy
         [SerializeField]
         private Animator animator;
 
-        private float transitionTime;
-
         private string attackName;
 
         #endregion
@@ -23,7 +21,6 @@ namespace Assets.Scripts.Enemy
         {
             var serviceLocator = ServiceLocator.Instance;
 
-            transitionTime = serviceLocator.ConfigsStorage.EnemyConfig.AnimationTransitionTime;
             attackName = serviceLocator.ConfigsStorage.EnemyConfig.AnimationAttackName;
         }
 
@@ -32,7 +29,7 @@ namespace Assets.Scripts.Enemy
         /// </summary>
         public void OnAttack()
         {
-            animator.CrossFade(attackName, transitionTime);
+            animator.Play(attackName);
         }
     }
 }

@@ -13,5 +13,8 @@ namespace Assets.Scripts.Infrastructure
 
         [SerializeField]
         public EnemyConfig EnemyConfig;
+
+        [SerializeField]
+        public BulletConfig BulletConfig;
     }
 }
