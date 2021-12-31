@@ -16,6 +16,9 @@ namespace Assets.Scripts.Player
         [SerializeField]
         private Rigidbody body;
 
+        [SerializeField]
+        private Renderer render;
+
         private float damage;
 
         #endregion
@@ -29,6 +32,14 @@ namespace Assets.Scripts.Player
             body.AddRelativeForce(config.StartingForce);
 
             StartCoroutine(WaitAndDestroy(config.LifeTime));
+        }
+
+        /// <summary>
+        /// Устанавливает цвет пули в соответствии с передаваемым значением.
+        /// </summary>
+        public void SetColor(Color color)
+        {
+            render.material.color = color;
         }
 
         private IEnumerator WaitAndDestroy(float time)

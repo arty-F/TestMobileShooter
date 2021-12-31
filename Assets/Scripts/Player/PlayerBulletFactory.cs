@@ -10,6 +10,8 @@ namespace Assets.Scripts.Player
     {
         #region private fields
 
+        private Color lastCollectedColor;
+
         private GameObject bulletPrefab;
 
         [SerializeField]
@@ -17,16 +19,34 @@ namespace Assets.Scripts.Player
 
         #endregion
 
+        private void Awake()
+        {
+            lastCollectedColor = Color.white;
+        }
+
         private void Start()
         {
             var serviceLocator = ServiceLocator.Instance;
 
             bulletPrefab = serviceLocator.ConfigsStorage.BulletConfig.Prefab;
+
+            serviceLocator.PlayerCoinCollector.CoinCollected += OnCoinCollected;
         }
 
         public void CreateBullet()
         {
-            Instantiate(bulletPrefab, transform.position, mainCamera.transform.rotation);
+            var bullet = Instantiate(bulletPrefab, transform.position, mainCamera.transform.rotation)
+                .GetComponent<PlayerBulletController>();
+
+            bullet.SetColor(lastCollectedColor);
+        }
+
+        /// <summary>
+        /// Обработчик подбора монет игроком.
+        /// </summary>
+        private void OnCoinCollected(Color color)
+        {
+            lastCollectedColor = color;
         }
     }
 }

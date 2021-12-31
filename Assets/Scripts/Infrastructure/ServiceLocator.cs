@@ -27,6 +27,9 @@ namespace Assets.Scripts.Infrastructure
         [SerializeField]
         public CoinFactory CoinFactory;
 
+        [SerializeField]
+        public PlayerCoinCollector PlayerCoinCollector;
+
         #endregion
 
         private void Awake()

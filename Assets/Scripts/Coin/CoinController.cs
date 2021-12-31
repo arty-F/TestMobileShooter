@@ -16,7 +16,7 @@ namespace Assets.Scripts.Coin
         private Rigidbody body;
 
         [SerializeField]
-        private Renderer renderer;
+        private Renderer render;
 
         #endregion
 
@@ -34,7 +34,15 @@ namespace Assets.Scripts.Coin
         public void SetColor(Color color)
         {
             currentColor = color;
-            renderer.material.color = color;
+            render.material.color = color;
+        }
+
+        /// <summary>
+        /// Возвращает цвет данной награды.
+        /// </summary>
+        public Color GetColor()
+        {
+            return currentColor;
         }
     }
 }
